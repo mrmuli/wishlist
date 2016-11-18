@@ -1,0 +1,27 @@
+{
+  "name": "wishlist",
+  "description": "A django powered buckelist API application",
+  "main": "index.js",
+  "authors": [
+    "Joseph Muli"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/andela-jmuli/wishlist",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-cookies": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "bootstrap-material-design": "^4.0.2",
+    "jquery": "^3.1.1",
+    "ng-dialog": "ngDialog#^0.6.4",
+    "underscore": "^1.8.3"
+  }
+}

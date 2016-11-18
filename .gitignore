@@ -1,3 +1,9 @@
-env
+wish-env
 *.pyc
 staticfiles
+.DS_Store
+# Node modules
+node_modules
+
+# Bower Components
+bower_components
