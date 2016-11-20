@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
+    'api',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +85,7 @@ WSGI_APPLICATION = 'wishlist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wishlist_dev_db',
+        'NAME': 'wishlist_dev',
         'USER': 'clerk',
         'PASSWORD': 'master12',
         'HOST': 'localhost',
