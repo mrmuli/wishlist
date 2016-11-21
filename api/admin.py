@@ -10,7 +10,7 @@ class BucketlistAdmin(admin.ModelAdmin):
 
 class BucketlistItemAdmin(admin.ModelAdmin):
     model = BucketlistItem
-    list_display = ('name', 'date_created', 'date_modified')
+    list_display = ('date_created', 'date_modified')
 
 
 admin.site.register(Bucketlist, BucketlistAdmin)
