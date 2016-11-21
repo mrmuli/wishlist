@@ -7,3 +7,10 @@ node_modules
 
 # Bower Components
 bower_components
+
+# Migrations
+api/migrations
+
+*.sqlite3
+# CI test files
+.coverage

@@ -1,0 +1,9 @@
+[report]
+omit=
+    */python?.?/*
+    *site-packages/*
+    *tests/*
+    *manage.py*
+
+[html]
+directory = coverage_html
