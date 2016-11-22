@@ -1,7 +1,16 @@
 from base_tests import BaseTest
+from django.contrib.auth.models import User
 from rest_framework import status
 
 class TestUsers(BaseTest):
+
+    def user_creation(self, username='jojo', first_name='joseph', last_name='muli', email='joseph.muli@andela.com', password='master12'):
+        return User.objects.create(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
+
+    def test_user_model_instance(self):
+        u = self.user_creation()
+        self.assertTrue(isinstance(u, User))
+        # self.assertEqual(u.__unicode__(), u.id, u.name)
 
     def test_successful_user_creation(self):
         response = self.create_users(self.test_user1)
