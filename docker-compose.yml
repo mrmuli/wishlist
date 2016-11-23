@@ -1,0 +1,7 @@
+version: '1'
+services:
+    app:
+        build: extras/docker/develop/
+        command: bash -c "source ~/venv/bin/activate && python manage.py runserver 0.0.0.0:8000"
+        ports:
+            - "3000:8000"
