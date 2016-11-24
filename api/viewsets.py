@@ -4,6 +4,8 @@ from rest_framework import generics, viewsets
 from django.contrib.auth.models import User
 from models import Bucketlist, BucketlistItem
 from rest_framework.permissions import IsAuthenticated
+from permissions import IsOwnerOrReadOnly
+
 
 class BaseMixin(object):
     """
@@ -12,6 +14,11 @@ class BaseMixin(object):
     """
     permission_classes = (
     'rest_framework.permissions.IsAuthenticated',
+    'IsOwnerOrReadOnly',
+    )
+    authentication_classes = (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     )
 
 class UserViewSet(viewsets.ModelViewSet):
