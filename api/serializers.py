@@ -3,15 +3,6 @@ from models import Bucketlist, BucketlistItem
 from django.contrib.auth.models import User
 
 
-class BucketlistSerializer(serializers.ModelSerializer):
-    items = BucketlistitemSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Bucketlist
-        fields = ('name', 'description', 'date_created', 'date_modified', 'created_by', 'items')
-        read_only_fields = ('id', 'date_created', 'date_modified', 'items')
-
-
 class BucketlistItemSerializer(serializers.ModelSerializer):
     bucketlist = serializers.StringRelatedField(many=True)
 
@@ -19,6 +10,15 @@ class BucketlistItemSerializer(serializers.ModelSerializer):
         model = BucketlistItem
         fields = ('item_name', 'date_created', 'date_modified', 'bucketlist', 'is_done', 'bucketlist')
         read_only_fields = ('id', 'date_created', 'date_modified')
+
+
+class BucketlistSerializer(serializers.ModelSerializer):
+    items = BucketlistItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Bucketlist
+        fields = ('name', 'description', 'date_created', 'date_modified', 'created_by', 'items')
+        read_only_fields = ('id', 'date_created', 'date_modified', 'items')
 
 
 class UserSerializer(serializers.ModelSerializer):
