@@ -14,7 +14,7 @@ class BaseTest(APITestCase):
         self.fake = Factory.create()
         self.client = APIClient()
 
-        self.test_user1 = {
+        self.test_user3 = {
         'username': self.fake.user_name(),
         'first_name': self.fake.first_name(),
         'last_name': self.fake.last_name(),
@@ -29,23 +29,30 @@ class BaseTest(APITestCase):
         'email': self.fake.email()
         }
         self.test_user1 = UserFactory()
-        # self.test_user = UserFactory()
+        self.test_user4 = UserFactory(username='mike')
 
 
-        self.single_bucketlist_url = '/api/v1/bucketlists/1'
+        self.single_bucketlist_url = '/api/v1/bucketlists/'
         self.all_bucketlists__url = '/api/v1/bucketlists/'
         self.create_bucketlist_item__url = '/api/v1/bucketlists/2/items/'
         self.single_bucketlist_item__url = '/api/v1/bucketlists/1/items/1/'
 
+    def user_creation(self, username='jojo', first_name='joseph', last_name='muli', email='joseph.muli@andela.com', password='master12'):
+        return User.objects.create(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
+
+    def create_users(self, user):
+        response = self.client.post(path='/auth/register/', data=user, format='json')
+        return response
+
     def login_user1(self):
         "This method logs in user 1 and returns the token"
-        # self.create_users(self.test_user1)
-        login_url = reverse('login')
-        response = self.client.post(login_url, self.test_user1)
+
+        login_url = "/auth/login/"
+        response = self.client.post(login_url, self.test_user1, format='json')
         self.token = response.data.get('token')
         return self.token
 
-
-    def create_users(self, user):
-        response = self.client.post(path='/users/', data=user, format='json')
-        return response
+    def get_token(self):
+        """ Set Header token """
+        self.login_user1()
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
