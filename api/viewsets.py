@@ -12,14 +12,8 @@ class BaseMixin(object):
     The class contained shared resources amongst viewsets
     i.e. : permissions, filtering and authentication
     """
-    permission_classes = (
-    'rest_framework.permissions.IsAuthenticated',
-    'IsOwnerOrReadOnly',
-    )
-    authentication_classes = (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    )
+    permission_classes = (IsAuthenticated,IsOwnerOrReadOnly)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -39,7 +33,7 @@ class BucketlistView(BaseMixin, generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         user = self.request.user
-        serializer.save(created_by=user)
+        serializer.save(created_by=self.request.user)
 
 
 class BucketlistDetail(BaseMixin, generics.RetrieveUpdateDestroyAPIView):
@@ -55,8 +49,13 @@ class BucketlisItemView(BaseMixin, generics.CreateAPIView):
         buck_id = self.kwargs['pk']
         return BucketlistItem.objects.filter(bucketlist=buck_id)
 
+    def perform_create(self, serializer):
+        buck_id = Bucketlist.objects.filter(id=int(self.kwargs['pk'])).first()
+        serializer.save(bucketlist=buck_id)
 
-class BucketlistItemUpdate(BaseMixin, generics.UpdateAPIView):
+
+
+class BucketlistitemDetail(BaseMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = BucketlistItem.objects.all()
     serializer_class = BucketlistItemSerializer
 
@@ -67,12 +66,23 @@ class BucketlistItemUpdate(BaseMixin, generics.UpdateAPIView):
         return bucketlistitem
 
 
-class BucketlistItemDestroy(BaseMixin, generics.DestroyAPIView):
-    queryset = BucketlistItem.objects.all()
-    serializer_class = BucketlistItemSerializer
-
-    def get_queryset(self):
-        buck_id = self.kwargs['id']
-        item_id = self.kwargs['pk']
-        bucketlistitem = BucketlistItem.objects.filter(id=item_id, bucketlist=buck_id)
-        return bucketlistitem
+# class BucketlistItemUpdate(BaseMixin, generics.UpdateAPIView):
+#     queryset = BucketlistItem.objects.all()
+#     serializer_class = BucketlistItemSerializer
+#
+#     def get_queryset(self):
+#         buck_id = self.kwargs['id']
+#         item_id = self.kwargs['pk']
+#         bucketlistitem = BucketlistItem.objects.filter(id=item_id, bucketlist=buck_id)
+#         return bucketlistitem
+#
+#
+# class BucketlistItemDestroy(BaseMixin, generics.DestroyAPIView):
+#     queryset = BucketlistItem.objects.all()
+#     serializer_class = BucketlistItemSerializer
+#
+#     def get_queryset(self):
+#         buck_id = self.kwargs['id']
+#         item_id = self.kwargs['pk']
+#         bucketlistitem = BucketlistItem.objects.filter(id=item_id, bucketlist=buck_id)
+#         return bucketlistitem

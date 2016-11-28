@@ -5,22 +5,29 @@ class TestItems(BaseTest):
 
     def test_item_creation(self):
         """Test creation of bucketlist items"""
-        item_name = self.fake.first_name()
-        data = {'name': item_name, 'is_done': False}
 
         self.get_token()
-        url = self.create_bucketlist_item__url
-        response = self.client.post(url, data)
+        response = self.client.post('/bucketlists/',{'name': 'Test Bucketlist'}, format='json')
+        bucket_id = str(response.data['id'])
+        url = '/bucketlists/' + bucket_id + '/items/'
+        response = self.client.post(url, data={"item_name": "named"}, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_editing_an_item(self):
         """Test editing an item"""
-        name = 'apple'
-        data = {'name': name}
 
         self.get_token()
-        url = self.single_bucketlist_item__url + '1/'
-        response = self.client.put(url, data)
+
+        response = self.client.post('/bucketlists/',{'name': 'Test Bucketlist'}, format='json')
+        bucket_id = str(response.data['id'])
+        url = '/bucketlists/' + bucket_id + '/items/'
+
+        response = self.client.post(url, data={"item_name": "named"}, format='json')
+        item_id = str(response.data['id'])
+
+        url = '/bucketlists/' + bucket_id + '/items/' + item_id + '/'
+        response = self.client.put(url, data={'item_name': "apple"}, format='json')
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_editing_an_item_that_does_not_exist(self):
@@ -36,9 +43,18 @@ class TestItems(BaseTest):
     def test_item_deletion(self):
         """ test deletion of an item """
         self.get_token()
-        url = self.single_bucketlist_item__url + '1/'
+
+        response = self.client.post('/bucketlists/',{'name': 'Test Bucketlist'}, format='json')
+        bucket_id = str(response.data['id'])
+        url = '/bucketlists/' + bucket_id + '/items/'
+
+        response = self.client.post(url, data={"item_name": "named"}, format='json')
+        item_id = str(response.data['id'])
+
+        url = '/bucketlists/' + bucket_id + '/items/' + item_id + '/'
         response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_deleting_an_item_that_does_not_exist(self):
         """Test deletion of a none-existent item"""
