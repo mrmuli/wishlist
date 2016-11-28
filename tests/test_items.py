@@ -2,7 +2,7 @@ from base_tests import BaseTest
 from rest_framework import status
 
 class TestItems(BaseTest):
-
+    """ class for item tests """
     def test_item_creation(self):
         """Test creation of bucketlist items"""
 

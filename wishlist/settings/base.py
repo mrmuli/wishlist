@@ -44,6 +44,16 @@ INSTALLED_APPS = [
     'api',
     'rest_framework_jwt',
     'djoser',
+    'django_nose',
+]
+
+# For running nose tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Nose test arguments
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=api',
 ]
 
 SITE_ID = 1

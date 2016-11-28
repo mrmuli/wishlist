@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 
 
 class BucketlistItemSerializer(serializers.ModelSerializer):
-    # bucketlist = serializers.StringRelatedField(many=True)
+    """
+    Serialier class for a bucketlist item
+    """
 
     class Meta:
         model = BucketlistItem
@@ -13,6 +15,9 @@ class BucketlistItemSerializer(serializers.ModelSerializer):
 
 
 class BucketlistSerializer(serializers.ModelSerializer):
+    """
+    serializer class for bucketlists
+    """
     items = BucketlistItemSerializer(many=True, read_only=True)
 
     class Meta:
@@ -22,6 +27,9 @@ class BucketlistSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    serializer class for Users
+    """
     bucketlists = serializers.StringRelatedField(many=True)
     class Meta:
         model = User

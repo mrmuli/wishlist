@@ -9,8 +9,13 @@ install:
 
 env:
   - DB=sqlite
+branches:
+  - api-endpoints 
 # command to run tests
-script: coverage run manage.py test
+script:
+ -  python manage.py makemigrations
+ -  python manage.py migrate
+ -  python manage.py test
 
 after_success:
   - coveralls

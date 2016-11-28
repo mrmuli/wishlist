@@ -11,6 +11,9 @@ from factories import BucketlistFactory, BucketlistItemFactory, UserFactory
 class BaseTest(APITestCase):
 
     def setUp(self):
+        """
+        method that prepares tests with required data
+        """
         self.fake = Factory.create()
         self.client = APIClient()
 
@@ -38,9 +41,11 @@ class BaseTest(APITestCase):
         self.single_bucketlist_item__url = '/bucketlists/1/items/'
 
     def user_creation(self, username='jojo', first_name='joseph', last_name='muli', email='joseph.muli@andela.com', password='master12'):
+        """ method that tests object instance in model test """
         return User.objects.create(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
 
     def create_users(self, user):
+        """ method to register a new user """
         response = self.client.post(path='/auth/register/', data=user, format='json')
         return response
 
@@ -54,5 +59,4 @@ class BaseTest(APITestCase):
     def get_token(self):
         """ Set Header token """
         self.login_user1()
-        self.client.force_authenticate(token=self.token)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)

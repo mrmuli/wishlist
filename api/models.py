@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Bucketlist(models.Model):
+    """ Bucketlist model class """
     name = models.CharField(max_length=50, blank=False)
     description = models.CharField(max_length=100, blank=True, default='None')
     date_created = models.DateTimeField(auto_now_add=True)
@@ -16,6 +17,7 @@ class Bucketlist(models.Model):
 
 
 class BucketlistItem(models.Model):
+    """ Bucketlist item model class """
     item_name = models.CharField(max_length=50, blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
