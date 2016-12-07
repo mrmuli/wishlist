@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'djoser',
     'django_nose',
+    'corsheaders',
 ]
 
 # For running nose tests
@@ -59,6 +60,7 @@ NOSE_ARGS = [
 SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
