@@ -74,6 +74,8 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'wishlist.urls'
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
