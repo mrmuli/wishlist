@@ -18,12 +18,12 @@ class BucketlistSerializer(serializers.ModelSerializer):
     """
     serializer class for bucketlists
     """
-    items = BucketlistItemSerializer(many=True, read_only=True)
+    bucketlist_items = BucketlistItemSerializer(many=True, read_only=True)
 
     class Meta:
         model = Bucketlist
-        fields = ('id', 'name', 'description', 'date_created', 'date_modified', 'items')
-        read_only_fields = ('id', 'date_created', 'date_modified','created_by', 'items')
+        fields = ('id', 'name', 'description', 'date_created', 'date_modified', 'bucketlist_items')
+        read_only_fields = ('id', 'date_created', 'date_modified','created_by', 'bucketlist_items')
 
 
 class UserSerializer(serializers.ModelSerializer):
