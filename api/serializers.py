@@ -7,10 +7,6 @@ class BucketlistItemSerializer(serializers.ModelSerializer):
     """
     Serialier class for a bucketlist item
     """
-    def validate_name(self, data):
-        if data['name'] == " ":
-            raise serializers.ValidationError('Name cannot be empty!')
-        return data
 
     def validate_bucketlists(self, name):
 
@@ -24,6 +20,7 @@ class BucketlistItemSerializer(serializers.ModelSerializer):
         if item:
             raise serializers.ValidationError('You already have that item!')
             return name
+
 
     class Meta:
         model = BucketlistItem
@@ -49,10 +46,6 @@ class BucketlistSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('You already have that bucketlist!')
             return name
 
-    def validate_name(self, data):
-        if data['name'] == " ":
-            raise serializers.ValidationError('Name cannot be empty!')
-        return data
 
     class Meta:
         model = Bucketlist
