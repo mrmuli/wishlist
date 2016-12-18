@@ -9,7 +9,7 @@ from rest_framework import status
 from factories import BucketlistFactory, BucketlistItemFactory, UserFactory
 
 class BaseTest(APITestCase):
-
+    """ Base class for test cases """
     def setUp(self):
         """
         method that prepares tests with required data

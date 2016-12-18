@@ -31,9 +31,11 @@ class BucketlistView(BaseMixin, generics.ListCreateAPIView):
     serializer_class = BucketlistSerializer
 
     def get_queryset(self):
+        """ Method to return bucketlists by user """
         return Bucketlist.objects.filter(created_by=self.request.user)
 
     def perform_create(self, serializer):
+        """ Method to save bucketlists by user """
         user = self.request.user
         serializer.save(created_by=self.request.user)
 
@@ -54,10 +56,12 @@ class BucketlisItemView(BaseMixin, generics.CreateAPIView):
     serializer_class = BucketlistItemSerializer
 
     def get_queryset(self):
+        """ Method to return bucketlist items by bucketlists """
         buck_id = self.kwargs['pk']
         return BucketlistItem.objects.filter(bucketlist=buck_id)
 
     def perform_create(self, serializer):
+        """ Method to save bucketlist items by bucketlist """
         buck_id = Bucketlist.objects.filter(id=int(self.kwargs['pk'])).first()
         serializer.save(bucketlist=buck_id)
 
@@ -71,6 +75,7 @@ class BucketlistitemDetail(BaseMixin, generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BucketlistItemSerializer
 
     def get_queryset(self):
+        """ Method to get bucketlist item by id """
         buck_id = self.kwargs['id']
         item_id = self.kwargs['pk']
         bucketlistitem = BucketlistItem.objects.filter(id=item_id, bucketlist=buck_id)
