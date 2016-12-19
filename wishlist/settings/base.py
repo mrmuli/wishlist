@@ -40,12 +40,28 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'api',
+    'rest_framework_jwt',
+    'djoser',
+    'django_nose',
+    'corsheaders',
+    'rest_framework_swagger',
+]
+
+# For running nose tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Nose test arguments
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=api',
 ]
 
 SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +74,8 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'wishlist.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
@@ -94,6 +112,26 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+import datetime
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+
+
+}
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 

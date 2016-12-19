@@ -5,8 +5,8 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wishlist_dev',
-        'USER': 'clerk',
+        'NAME': 'wisher',
+        'USER': 'master',
         'PASSWORD': 'master12',
         'HOST': 'localhost',
         'PORT': '',
