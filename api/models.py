@@ -15,6 +15,9 @@ class Bucketlist(models.Model):
     def __unicode__(self):
         return "{} : {}".format(self.id, self.name)
 
+    class Meta:
+        unique_together = ("name", "created_by")
+
 
 class BucketlistItem(models.Model):
     """ Bucketlist item model class """
@@ -26,3 +29,6 @@ class BucketlistItem(models.Model):
 
     def __unicode__(self):
         return "{}".format(self.item_name)
+
+    class Meta:
+        unique_together = ("item_name", "bucketlist")
