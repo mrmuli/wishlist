@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Wishlist
 [![Build Status](https://travis-ci.org/andela-jmuli/wishlist.svg?branch=api-endpoints)](https://travis-ci.org/andela-jmuli/wishlist)
 [![Code Health](https://landscape.io/github/andela-jmuli/wishlist/develop/landscape.svg?style=flat)](https://landscape.io/github/andela-jmuli/wishlist/develop)
@@ -8,7 +8,9 @@
 Wishlist is a Django powered bucketlist application that allows creating and editing of bucket lists -- These are a number of experiences or achievements that a person hopes to have or accomplish during their lifetime.  
 A quick demo can be viewed [here](https://youtu.be/Lida5BWogj4)
 
+
 ## Installation and Setup:
+
 
 
 * Clone the repository:
