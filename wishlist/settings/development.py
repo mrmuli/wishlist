@@ -2,21 +2,14 @@ from base import *
 
 DEBUG = True
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'wishlist_dev',
-#         'USER': 'clerk',
-#         'PASSWORD': 'master12',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-#
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'wishlist_tests.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'wisher',
+        'USER': 'master',
+        'PASSWORD': 'master12',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 

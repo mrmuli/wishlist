@@ -1,26 +1,26 @@
 from rest_framework import serializers
 from models import Bucketlist, BucketlistItem
 from django.contrib.auth.models import User
-
+from django.db import IntegrityError
 
 class BucketlistItemSerializer(serializers.ModelSerializer):
     """
     Serialier class for a bucketlist item
     """
 
-    def validate_bucketlists(self, name):
+    def create(self, validated_data):
+        try:
+            if not validated_data.get('item_name'):
+                raise serializers.ValidationError('The name cannot be empty')
+            return super(BucketlistItemSerializer, self).create(validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError('That name already exists')
 
-        view = self.context['view']
-        bucket_id = view.kwargs['id']
-        if self.context['request'].method == 'POST':
-            item = BucketlistItem.object.filter(item_name__iexact=item_name)
-        elif self.context['request'].method == 'PUT':
-            item_id = vire.kwargs['pk']
-            item = BucketlistItem.object.filter(item_name__iexact=item_name, bucketlist=bucket_id).exclude(id=item_id)
-        if item:
-            raise serializers.ValidationError('You already have that item!')
-            return name
-
+    def update(self, instance, validated_data):
+        try:
+            return super(BucketlistItemSerializer, self).update(instance, validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError('That name already exists')
 
     class Meta:
         model = BucketlistItem
@@ -34,18 +34,19 @@ class BucketlistSerializer(serializers.ModelSerializer):
     """
     bucketlist_items = BucketlistItemSerializer(many=True, read_only=True)
 
-    def validate_bucketlists(self, name):
-        user = self.context['request'].user
-        view = self.context['view']
-        bucket_id = view.kwargs['id']
-        if self.context['request'].method == 'POST':
-            buck = Bucketlist.object.filter(name__iexact=name, created_by=user)
-        elif self.context['request'].method == 'PUT':
-            buck = Bucketlist.object.filter(name__iexact=name, created_by=user).exclude(id=bucket_id)
-        if buck:
-            raise serializers.ValidationError('You already have that bucketlist!')
-            return name
+    def create(self, validated_data):
+        try:
+            if not validated_data.get('name'):
+                raise serializers.ValidationError('The name cannot be empty')
+            return super(BucketlistSerializer, self).create(validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError('That name already exists')
 
+    def update(self, instance, validated_data):
+        try:
+            return super(BucketlistSerializer, self).update(instance, validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError('That name already exists')
 
     class Meta:
         model = Bucketlist
@@ -58,6 +59,8 @@ class UserSerializer(serializers.ModelSerializer):
     serializer class for Users
     """
     bucketlists = serializers.StringRelatedField(many=True)
+
+    
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'password', 'bucketlists')
