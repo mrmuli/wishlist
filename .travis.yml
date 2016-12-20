@@ -10,7 +10,8 @@ install:
 env:
   - DB=sqlite
 branches:
-  - api-endpoints 
+  - api-endpoints
+  - develop
 # command to run tests
 script:
  -  python manage.py makemigrations
