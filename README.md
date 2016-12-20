@@ -1,4 +1,6 @@
 
+![Alt text](./source/wish.png?raw=true "Optional Title") 
+
 # Wishlist
 [![Build Status](https://travis-ci.org/andela-jmuli/wishlist.svg?branch=api-endpoints)](https://travis-ci.org/andela-jmuli/wishlist)
 [![Code Health](https://landscape.io/github/andela-jmuli/wishlist/develop/landscape.svg?style=flat)](https://landscape.io/github/andela-jmuli/wishlist/develop)
