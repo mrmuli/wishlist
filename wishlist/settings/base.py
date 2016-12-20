@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'djoser',
     'django_nose',
     'corsheaders',
+    'rest_framework_swagger',
 ]
 
 # For running nose tests
